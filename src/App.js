@@ -61,7 +61,8 @@ function App() {
     newColumnTypes.splice(newColumnTypes.indexOf(comparisonFilter), 1);
     setColumnfilters(newColumnFilter);
     setColumnTypes(newColumnTypes);
-    setFilterNumerics([...filterNumerics,
+    setFilterNumerics([
+      ...filterNumerics,
       {
         column: columnFilter,
         comparison: comparisonFilter,
@@ -131,6 +132,25 @@ function App() {
     },
   };
 
+  const showFilters = () => {
+    console.log('showfilters: ', filterNumerics);
+    return (
+      <section>
+        {filterNumerics.map((filter) => (
+          <span key={ filter.column }>
+            <span>{filter.column}</span>
+            <br />
+            <span>{filter.comparison}</span>
+            <br />
+            <span>{filter.value}</span>
+            <br />
+            <button type="button">X</button>
+          </span>
+        ))}
+      </section>
+    );
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -144,6 +164,7 @@ function App() {
               ) : (
                 <div>
                   {formField()}
+                  {showFilters()}
                   <Table />
                 </div>
               )}
